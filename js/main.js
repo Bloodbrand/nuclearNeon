@@ -18,6 +18,7 @@ function Init() {
 
 	animate();
 }
+
 /*scene functions*/
 function addRenderer() {
 	renderer = new THREE.WebGLRenderer();
@@ -50,12 +51,14 @@ function animate() {
 
 /*game functions*/
 function addRaycasters () {
+	/*trackModuleRaycaster*/
 	var origin = new THREE.Vector3().copy(camera.position);
-	//offset origin so modules always get deleted when off screen
+	/*offset origin so modules always get deleted when off screen*/
 	origin.z += trackSettings.moduleLength;
 	var direction = new THREE.Vector3(0, -1, 0); // down
 	trackModuleRaycaster = new THREE.Raycaster(origin, direction);
-	///
+
+	/*playerHeightRaycaster*/
 	origin = new THREE.Vector3().copy(player.position);
 	origin.y += 100;
 	origin.z -= 10;

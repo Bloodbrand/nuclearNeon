@@ -1,8 +1,8 @@
 function makeShip () {
-	var geometry = new THREE.CylinderGeometry( 0, 6, 20, 3 );
+	var geometry = new THREE.CylinderGeometry( 0, 6, 30, 3 );
 	var matrix = new THREE.Matrix4().makeRotationX ( - Math.PI / 2 );
 	geometry.applyMatrix(matrix);
-	var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+	var material = new THREE.MeshLambertMaterial( {color: 0xffffff} );
 	var ship = new THREE.Mesh( geometry, material );
 	ship.position.y = 5;
 	ship.name = 'ship';
@@ -10,16 +10,16 @@ function makeShip () {
 }
 
 function makeTrackModule () {
-	//var randomZsc = Math.round(Math.random() * 100 + 50);
 	var randomColor = Math.random() * 0x0000ff ;
 
 	var geometry = new THREE.BoxGeometry( trackSettings.moduleWidth, 1, trackSettings.moduleLength );
-	var material = new THREE.MeshBasicMaterial( { color: randomColor } );
+	//var material = new THREE.MeshBasicMaterial( { color: randomColor } );
+	var material = shaderMaterial();
 	var module = new THREE.Mesh( geometry, material );
 	var trackObject = addTrackObject.pickObject();
 	trackObjectsArray.push(trackObject);
 	module.add(trackObject);
-	//module.add(addTrackObject.returnSide());
+	module.add(addTrackObject.returnSide());
 	module.zValue = trackSettings.moduleLength;
 	return module;
 }
@@ -36,7 +36,7 @@ var addTrackObject = {
 		}
 	},
 	returnPickup: function(){
-		var geometry = new THREE.SphereGeometry( 3, 2, 2 );
+		var geometry = new THREE.SphereGeometry( 5, 4, 3 );
 		var randomColor = 0xffffff ;
 
 		if(trackSettings.pickupNum == trackSettings.maxConsecutivePickups){
@@ -45,7 +45,7 @@ var addTrackObject = {
 		}
 		else trackSettings.pickupNum++;
 
-		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: true} );
+		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: false} );
 		var pickup = new THREE.Mesh( geometry, material );	
 		pickup.position.x = trackSettings.pickupXpos;
 		pickup.position.y = trackSettings.pickupHeight;
@@ -53,16 +53,18 @@ var addTrackObject = {
 		return pickup;		
 	},
 	returnSide: function(){
-		var geometry = new THREE.SphereGeometry( 3, 2, 2 );
-		var randomColor = new THREE.Color( Math.random(), 0, Math.random() / 2 );
+		var geometry = new THREE.SphereGeometry( 3, 2, 20 );
+		var num = Math.random();
+		var randomColor = new THREE.Color( 0, num / 2, num);
 
 		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: true} );
 		var side1 = new THREE.Mesh( geometry, material );
 		var side2 = new THREE.Mesh( geometry, material );
 		side1.position.x = -70;	
 		side1.position.y = 20;
-		side1.scale.y = 150;
-		side1.scale.z = 30;
+		side1.rotation.x = -num;
+		side1.scale.y = 75 * (num + 1);
+		side1.scale.z = 75 * (num + 1);
 
 		side2.position.x = 140;	
 
