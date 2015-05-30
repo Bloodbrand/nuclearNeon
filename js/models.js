@@ -10,11 +10,14 @@ function makeShip () {
 }
 
 function makeTrackModule () {
+	var randomColor = Math.random() * 0x0000ff ;
+
 	var geometry = new THREE.BoxGeometry( trackSettings.moduleWidth, 1, trackSettings.moduleLength );
-	var material = trackShaderMaterial();
-	var module = new THREE.Mesh( geometry, material );	
+	//var material = new THREE.MeshBasicMaterial( { color: randomColor } );
+	var material = shaderMaterial();
+	var module = new THREE.Mesh( geometry, material );
 	var trackObject = addTrackObject.pickObject();
-	trackObjectsArray.push(trackObject);	
+	trackObjectsArray.push(trackObject);
 	module.add(trackObject);
 	module.add(addTrackObject.returnSide());
 	module.zValue = trackSettings.moduleLength;
@@ -52,7 +55,7 @@ var addTrackObject = {
 	returnSide: function(){
 		var geometry = new THREE.SphereGeometry( 3, 2, 20 );
 		var num = Math.random();
-		var randomColor = new THREE.Color( num, 0, 0);
+		var randomColor = new THREE.Color( 0, num / 2, num);
 
 		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: true} );
 		var side1 = new THREE.Mesh( geometry, material );

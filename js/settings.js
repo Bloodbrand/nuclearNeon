@@ -1,6 +1,6 @@
 var camNear = 0.1, camFar = 10000;
 
-var speed = 20;
+var speed = 10;
 var maxModules = 20;
 var playerHeight = 20;
 
