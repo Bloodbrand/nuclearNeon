@@ -52,16 +52,16 @@ var makeTrackObject = {
 	returnSide: function(){
 		var geometry = new THREE.SphereGeometry( 3, 2, 20 );
 		var num = Math.random();
-		var randomColor = new THREE.Color( num, 0, 0);
+		var randomColor = new THREE.Color( 0, 0, 1);
 
-		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: true} );
+		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: false} );
 		var side1 = new THREE.Mesh( geometry, material );
 		var side2 = new THREE.Mesh( geometry, material );
 		side1.position.x = -70;	
 		side1.position.y = 20;
-		side1.rotation.x = -num;
-		side1.scale.y = 75 * (num + 1);
-		side1.scale.z = 75 * (num + 1);
+		//side1.rotation.x = -num;
+		//side1.scale.y = 75 * (num + 1);
+		//side1.scale.z = 75 * (num + 1);
 
 		side2.position.x = 140;	
 

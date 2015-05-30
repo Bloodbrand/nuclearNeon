@@ -1,11 +1,14 @@
 var container, camera, scene, renderer, trackModuleRaycaster, playerHeightRaycaster, keyboard, 
 	colliderSystem, frameID;
+var scoreBoard;
 var width = window.innerWidth, height = window.innerHeight;
 
 Init();
 
 function Init() {
 	container = document.getElementById( 'container' );
+	scoreBoard = $('#score');
+	
 	scene = new THREE.Scene();
 
 	addRenderer();

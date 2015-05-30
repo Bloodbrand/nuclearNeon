@@ -1,18 +1,21 @@
+var startTime, currentTime;
 var trackHolder = new THREE.Object3D();
 var trackObjectsArray = [];
 var player;
 
 function startGame () {
+	startTime = new Date().getTime();
 	generateTrack.addInitialModule();
 	generateTrack.addModule(maxModules, 0);
-
-	scene.add(trackHolder);
 	player = makeShip();
+	
+	scene.add(trackHolder);
 	scene.add(player);
 	scene.add(makePlane());
 }
 
 function gameLoop () {	
+	manageTime();
 	takeInput();
 	moveTrack();
 	movePlayer.update();
@@ -58,4 +61,9 @@ function detectOffscreenModule () {
 		trackObjectsArray.shift();
 		generateTrack.addModule(1);
 	} 
+}
+
+function manageTime () {
+	currentTime = new Date().getTime();
+	scoreBoard.text('distance: ' + -Math.floor(((startTime - currentTime) / 100) * speed).toString());
 }
