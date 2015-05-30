@@ -1,5 +1,5 @@
 var container, camera, scene, renderer, trackModuleRaycaster, playerHeightRaycaster, keyboard, 
-	colliderSystem;
+	colliderSystem, frameID;
 var width = window.innerWidth, height = window.innerHeight;
 
 Init();
@@ -43,9 +43,10 @@ function addCamera() {
 }
 
 function animate() {
-	gameLoop();
     TWEEN.update();
-	requestAnimationFrame(animate);
+	frameID = requestAnimationFrame(animate);
+	updateShaders(frameID);
+	gameLoop(frameID);
 	renderer.render(scene, camera);
 } 
 

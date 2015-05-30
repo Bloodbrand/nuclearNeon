@@ -1,0 +1,15 @@
+body{
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+}
+
+canvas {
+    display: block;
+}
+
+#score{
+    color: blue;
+    font-size: 30px;
+	position:absolute;
+}

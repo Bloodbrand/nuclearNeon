@@ -5,10 +5,11 @@ var player;
 function startGame () {
 	generateTrack.addInitialModule();
 	generateTrack.addModule(maxModules, 0);
-	scene.add(trackHolder);
 
+	scene.add(trackHolder);
 	player = makeShip();
 	scene.add(player);
+	scene.add(makePlane());
 }
 
 function gameLoop () {	
@@ -25,10 +26,14 @@ var generateTrack = {
 			var newTrack = makeTrackModule();
 			var length = trackHolder.children.length;
 			var lastModule = trackHolder.children[length-1];
-			newTrack.position.z = lastModule.position.z - lastModule.zValue / 2 - newTrack.zValue / 2 ;
+			newTrack.position.z = lastModule.position.z - (lastModule.zValue / 2) 
+				- (newTrack.zValue / 2);
 
 			//wave pattern
 			newTrack.position.y = Math.sin(this.totalModules) * 5;
+
+			//rotation
+			//newTrack.rotation.z = this.totalModules * (Math.PI / 22.5);
 			this.totalModules++;
 
 			trackHolder.add(newTrack);
@@ -53,11 +58,4 @@ function detectOffscreenModule () {
 		trackObjectsArray.shift();
 		generateTrack.addModule(1);
 	} 
-}
-
-function detectTrackObjects (obj) {
-	//if(obj){if(obj.object.parent) obj.object.parent.remove(obj.object);
-	if(obj)
-	console.log(obj.object.name)
-	
 }

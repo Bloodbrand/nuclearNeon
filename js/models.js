@@ -13,15 +13,15 @@ function makeTrackModule () {
 	var geometry = new THREE.BoxGeometry( trackSettings.moduleWidth, 1, trackSettings.moduleLength );
 	var material = trackShaderMaterial();
 	var module = new THREE.Mesh( geometry, material );	
-	var trackObject = addTrackObject.pickObject();
+	var trackObject = makeTrackObject.pickObject();
 	trackObjectsArray.push(trackObject);	
 	module.add(trackObject);
-	module.add(addTrackObject.returnSide());
+	//module.add(makeTrackObject.returnSide());
 	module.zValue = trackSettings.moduleLength;
 	return module;
 }
 
-var addTrackObject = {
+var makeTrackObject = {
 	pickObject: function() {
 		if(trackSettings.modulesWithoutSpike != trackSettings.spikeFrequency){
 			trackSettings.modulesWithoutSpike++;
@@ -82,4 +82,15 @@ var addTrackObject = {
 			Math.ceil(Math.random() * 3));
 		return randomX;
 	}
+}
+
+function makePlane () {
+	var geometry = new THREE.PlaneGeometry( 3000, 5000, 50, 50 );
+	var roatationMatrix = new THREE.Matrix4().makeRotationX ( -Math.PI / 2 );
+	geometry.applyMatrix(roatationMatrix);
+
+	var material = planeUnderneathMaterial(geometry);
+	var plane = new THREE.Mesh(geometry, material);
+	plane.position.set(0, -50, -2500);
+	return plane;
 }
