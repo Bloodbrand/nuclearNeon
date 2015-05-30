@@ -51,17 +51,8 @@ function getObjectBelow (array) {
 }
 
 function detectModuleChange () {
-	if(movePlayer.moduleBelow && movePlayer.moduleBelow.object.id != movePlayer.moduleBelowID){
-		// var collider = THREEx.Collider.createFromObject3d(movePlayer.moduleBelow.object.children[0]);		
-		// console.log(collider)
-		// colliders.push(collider);
-
-	    //  var helper	= new THREEx.ColliderHelper(collider);
-		// helper.material.color.set('green');
-		// movePlayer.moduleBelow.object.children[0].add(helper);
-		// helper.update();
+	if(movePlayer.moduleBelow && movePlayer.moduleBelow.object.id != movePlayer.moduleBelowID)
 		return true;
-	}
 	else return false;
 }
 
