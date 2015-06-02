@@ -1,5 +1,5 @@
-var container, camera, scene, renderer, trackModuleRaycaster, playerHeightRaycaster, keyboard, 
-	colliderSystem, frameID;
+var container, camera, scene, renderer, trackModuleRaycaster, playerHeightRaycaster, 
+	trackObjectRaycaster, keyboard, colliderSystem, frameID;
 var scoreBoard;
 var width = window.innerWidth, height = window.innerHeight;
 

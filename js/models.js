@@ -2,7 +2,7 @@ function makeShip () {
 	var geometry = new THREE.CylinderGeometry( 0, 6, 30, 3 );
 	var matrix = new THREE.Matrix4().makeRotationX ( - Math.PI / 2 );
 	geometry.applyMatrix(matrix);
-	var material = new THREE.MeshLambertMaterial( {color: 0xffffff} );
+	var material = shipShaderMaterial();
 	var ship = new THREE.Mesh( geometry, material );
 	ship.position.y = 5;
 	ship.name = 'ship';
@@ -16,7 +16,7 @@ function makeTrackModule () {
 	var trackObject = makeTrackObject.pickObject();
 	trackObjectsArray.push(trackObject);	
 	module.add(trackObject);
-	//module.add(makeTrackObject.returnSide());
+	module.add(makeTrackObject.returnSide());
 	module.zValue = trackSettings.moduleLength;
 	return module;
 }
@@ -50,18 +50,17 @@ var makeTrackObject = {
 		return pickup;		
 	},
 	returnSide: function(){
-		var geometry = new THREE.SphereGeometry( 3, 2, 20 );
+		var geometry = new THREE.BoxGeometry(1, 1, 1);
 		var num = Math.random();
 		var randomColor = new THREE.Color( 0, 0, 1);
-
 		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: false} );
 		var side1 = new THREE.Mesh( geometry, material );
 		var side2 = new THREE.Mesh( geometry, material );
 		side1.position.x = -70;	
-		side1.position.y = 20;
-		//side1.rotation.x = -num;
-		//side1.scale.y = 75 * (num + 1);
-		//side1.scale.z = 75 * (num + 1);
+		side1.position.y = num;
+		side1.rotation.x = -Math.PI / 3;
+		side1.scale.y = 2000;
+		side1.scale.z = 100;
 
 		side2.position.x = 140;	
 
@@ -69,7 +68,7 @@ var makeTrackObject = {
 		return side1;		
 	},
 	returnSpike: function () {
-		var geometry = new THREE.CylinderGeometry( 0, 5, trackSettings.spikeHeight, 3 );
+		var geometry = new THREE.CylinderGeometry( 0, 15, trackSettings.spikeHeight, 3 );
 		var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
 		var spike = new THREE.Mesh( geometry, material );
 		spike.position.x = this.determinePosition();
@@ -85,12 +84,12 @@ var makeTrackObject = {
 }
 
 function makePlane () {
-	var geometry = new THREE.PlaneGeometry( 3000, 5000, 50, 50 );
+	var geometry = new THREE.PlaneGeometry( 12000, 12000, 75, 75 );
 	var roatationMatrix = new THREE.Matrix4().makeRotationX ( -Math.PI / 2 );
 	geometry.applyMatrix(roatationMatrix);
 
 	var material = planeUnderneathMaterial(geometry);
 	var plane = new THREE.Mesh(geometry, material);
-	plane.position.set(0, -50, -2500);
+	plane.position.set(-33, -170, -6000);
 	return plane;
 }

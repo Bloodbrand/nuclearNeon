@@ -1,5 +1,7 @@
 var shaderSettings = {
 	planeUnderneathSettings:{
+		frequency: 5,
+		amplitude: 100,
 		uniforms: {
 		  	amplitude: {
 		    type: 'f',
@@ -16,8 +18,8 @@ var shaderSettings = {
 }
 
 function updateShaders (frameNumber) {
-	shaderSettings.planeUnderneathSettings.
-		uniforms.amplitude.value = Math.sin(frameNumber / 30) ;
+	shaderSettings.planeUnderneathSettings.uniforms.amplitude.value = 
+		Math.sin(frameNumber / shaderSettings.planeUnderneathSettings.frequency) ;
 }
 
 function trackShaderMaterial () {
@@ -69,7 +71,10 @@ function planeUnderneathMaterial (geometry) {
 	var values = shaderSettings.planeUnderneathSettings.attributes.displacement.value;
 
 	for (var v = 0; v < verts.length; v++) {
-	  values.push(Math.sin(Math.random()) * 60);	  
+	//if(v %30 == 0)
+	  values.push(Math.sin(Math.random()) * shaderSettings.planeUnderneathSettings.amplitude);
+	 // values.push(shaderSettings.planeUnderneathSettings.amplitude);	
+	//else values.push(0);
 	  //values.push(0);
 	}
 
@@ -92,12 +97,48 @@ function planeUnderneathMaterial (geometry) {
 		return ""+
 		"uniform float amplitude;"+
 		"varying vec2 vUv;"+
+		"varying vec3 vNormal;"+
 		"void main(){"+
 		"float color = 0.0;"+
 		"vec2 position = vUv;"+
-		"color = sin(position.x * (gl_FragCoord.x * 20.0)) / sin(position.x * 100.0);"+
-		"if(color < 0.2) color  = 1.0; else discard;"+
-		"gl_FragColor=vec4( 0, amplitude - 0.5, color, 1.0);}"
+		"color = sin(gl_FragCoord.x) / sin(gl_FragCoord.y);"+
+		"if(color > 0.6) discard;"+
+		"gl_FragColor=vec4( 0, 0, amplitude + 1.9, 1.0);}"
+
+	}
+}
+
+function shipShaderMaterial () {
+	var material = new THREE.ShaderMaterial({ 
+      	uniforms: shaderSettings.planeUnderneathSettings.uniforms,
+		attributes: {}, 
+		vertexShader: vertexShader(), 
+		fragmentShader: fragmentShader(),
+		transparent: true,
+		wireframe: false
+	});
+
+	return material;
+
+	function vertexShader () {	
+		return ""+
+		"varying vec2 vUv;"+
+		"uniform float amplitude;"+	
+		"void main(){"+
+		"vUv = uv;"+
+		"gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);}"
+	}
+
+	function fragmentShader () {	
+		return ""+
+		"varying vec2 vUv;"+
+		"uniform float amplitude;"+
+		"void main(){"+
+		"float color = 0.0;"+
+		"vec2 position = vUv;"+
+		//"color = cos(gl_FragCoord.x / 5.0) * tan(gl_FragCoord.y / 5.0);"+
+		"color = (position.y * (gl_FragCoord.y / 100.0)) * sin(gl_FragCoord.x) *sin(gl_FragCoord.y);"+
+		"gl_FragColor=vec4( color, color / 3.0, color / 5.0, 1.0);}"
 	}
 }
 
