@@ -57,10 +57,10 @@ var makeTrackObject = {
 		var side1 = new THREE.Mesh( geometry, material );
 		var side2 = new THREE.Mesh( geometry, material );
 		side1.position.x = -70;	
-		side1.position.y = num;
-		side1.rotation.x = -Math.PI / 3;
-		side1.scale.y = 2000;
-		side1.scale.z = 100;
+		side1.position.y += num * 30;
+		side1.rotation.x = -Math.PI / 2;
+		side1.scale.y = 1000;
+		side1.scale.z = 1;
 
 		side2.position.x = 140;	
 
@@ -69,7 +69,8 @@ var makeTrackObject = {
 	},
 	returnSpike: function () {
 		var geometry = new THREE.CylinderGeometry( 0, 15, trackSettings.spikeHeight, 3 );
-		var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+		//var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+		var material = shipShaderMaterial();
 		var spike = new THREE.Mesh( geometry, material );
 		spike.position.x = this.determinePosition();
 		spike.position.y = trackSettings.spikeHeight / 2;
@@ -84,12 +85,14 @@ var makeTrackObject = {
 }
 
 function makePlane () {
-	var geometry = new THREE.PlaneGeometry( 12000, 12000, 75, 75 );
+	var geometry = new THREE.SphereGeometry( 2500, 100, 100 );
+	var roatationMatrix = new THREE.Matrix4().makeRotationY ( -Math.PI / 2 );
+	geometry.applyMatrix(roatationMatrix);
 	var roatationMatrix = new THREE.Matrix4().makeRotationX ( -Math.PI / 2 );
 	geometry.applyMatrix(roatationMatrix);
 
 	var material = planeUnderneathMaterial(geometry);
 	var plane = new THREE.Mesh(geometry, material);
-	plane.position.set(-33, -170, -6000);
+	plane.position.set(0, 0, -6000);
 	return plane;
 }

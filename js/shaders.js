@@ -1,7 +1,7 @@
 var shaderSettings = {
 	planeUnderneathSettings:{
 		frequency: 5,
-		amplitude: 100,
+		amplitude: 500,
 		uniforms: {
 		  	amplitude: {
 		    type: 'f',
@@ -63,7 +63,7 @@ function planeUnderneathMaterial (geometry) {
 		vertexShader: vertexShader(), 
 		fragmentShader: fragmentShader(),
 		transparent: true,
-		wireframe: true
+		wireframe: true,
 	});
 
 	var verts = geometry.vertices;
@@ -101,9 +101,11 @@ function planeUnderneathMaterial (geometry) {
 		"void main(){"+
 		"float color = 0.0;"+
 		"vec2 position = vUv;"+
-		"color = sin(gl_FragCoord.x) / sin(gl_FragCoord.y);"+
-		"if(color > 0.6) discard;"+
-		"gl_FragColor=vec4( 0, 0, amplitude + 1.9, 1.0);}"
+		//"color = sin(gl_FragCoord.x) / sin(gl_FragCoord.y);"+
+		"color = sin(gl_FragCoord.y) * 4.0;"+
+		"if(color < 0.9) color = tan(position.y * vNormal.x) + tan(position.x * 50.0);"+
+		"else discard;"+
+		"gl_FragColor=vec4( amplitude + color / 3.0, 0, color, 1.0);}"
 
 	}
 }

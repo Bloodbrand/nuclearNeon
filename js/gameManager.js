@@ -34,7 +34,7 @@ var generateTrack = {
 				- (newTrack.zValue / 2);
 
 			//wave pattern
-			newTrack.position.y = Math.sin(this.totalModules) * 5;
+			//newTrack.position.y = Math.sin(this.totalModules) * 5;
 
 			//rotation
 			//newTrack.rotation.z = this.totalModules * (Math.PI / 22.5);
