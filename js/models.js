@@ -50,9 +50,9 @@ var makeTrackObject = {
 		return pickup;		
 	},
 	returnSide: function(){
-		var geometry = new THREE.BoxGeometry(1, 1, 1);
 		var num = Math.random();
-		var randomColor = new THREE.Color( 0, 0, 1);
+		var geometry = new THREE.BoxGeometry(num, num, num);
+		var randomColor = new THREE.Color( 1, 1, 1);
 		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: false} );
 		var side1 = new THREE.Mesh( geometry, material );
 		var side2 = new THREE.Mesh( geometry, material );
@@ -93,6 +93,8 @@ function makePlane () {
 
 	var material = planeUnderneathMaterial(geometry);
 	var plane = new THREE.Mesh(geometry, material);
-	plane.position.set(0, 0, -6000);
+	plane.scale.z = 0;
+	plane.scale.z = 3.5;
+	plane.position.set(0, 0, -7000);
 	return plane;
 }

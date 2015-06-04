@@ -38,6 +38,7 @@ var generateTrack = {
 
 			//rotation
 			//newTrack.rotation.z = this.totalModules * (Math.PI / 22.5);
+			//camera.rotation.z += Math.PI / 20;
 			this.totalModules++;
 
 			trackHolder.add(newTrack);
