@@ -44,6 +44,7 @@ return {
 			}
 			else trackSettings.pickupNum++;
 
+<<<<<<< HEAD
 			var material = new THREE.MeshBasicMaterial({color: randomColor, wireframe: false});
 			var pickup = new THREE.Mesh(geometry, material);
 			pickup.position.x = trackSettings.pickupXpos;
@@ -63,9 +64,31 @@ return {
 			side1.rotation.x = -Math.PI / 3;
 			side1.scale.y = 2000;
 			side1.scale.z = 100;
+=======
+		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: false} );
+		var pickup = new THREE.Mesh( geometry, material );	
+		pickup.position.x = trackSettings.pickupXpos;
+		pickup.position.y = trackSettings.pickupHeight;
+		pickup.name = "pickup";
+		return pickup;		
+	},
+	returnSide: function(){
+		var num = Math.random();
+		var geometry = new THREE.BoxGeometry(num, num, num);
+		var randomColor = new THREE.Color( 1, 1, 1);
+		var material = new THREE.MeshBasicMaterial( {color: randomColor, wireframe: false} );
+		var side1 = new THREE.Mesh( geometry, material );
+		var side2 = new THREE.Mesh( geometry, material );
+		side1.position.x = -70;	
+		side1.position.y += num * 30;
+		side1.rotation.x = -Math.PI / 2;
+		side1.scale.y = 1000;
+		side1.scale.z = 1;
+>>>>>>> 5f73d32fe4625e88799c2365af25ede1e72138bb
 
 			side2.position.x = 140;
 
+<<<<<<< HEAD
 			side1.add(side2);
 			return side1;
 		},
@@ -98,3 +121,39 @@ return {
 }
 }()
 })
+=======
+		side1.add(side2);
+		return side1;		
+	},
+	returnSpike: function () {
+		var geometry = new THREE.CylinderGeometry( 0, 15, trackSettings.spikeHeight, 3 );
+		//var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+		var material = shipShaderMaterial();
+		var spike = new THREE.Mesh( geometry, material );
+		spike.position.x = this.determinePosition();
+		spike.position.y = trackSettings.spikeHeight / 2;
+		spike.name = "spike";
+		return spike;		
+	},
+	determinePosition: function(){
+		var randomX = -(trackSettings.moduleWidth / 3) * 2 + ((trackSettings.moduleWidth / 3) * 
+			Math.ceil(Math.random() * 3));
+		return randomX;
+	}
+}
+
+function makePlane () {
+	var geometry = new THREE.SphereGeometry( 2500, 100, 100 );
+	var roatationMatrix = new THREE.Matrix4().makeRotationY ( -Math.PI / 2 );
+	geometry.applyMatrix(roatationMatrix);
+	var roatationMatrix = new THREE.Matrix4().makeRotationX ( -Math.PI / 2 );
+	geometry.applyMatrix(roatationMatrix);
+
+	var material = planeUnderneathMaterial(geometry);
+	var plane = new THREE.Mesh(geometry, material);
+	plane.scale.z = 0;
+	plane.scale.z = 3.5;
+	plane.position.set(0, 0, -7000);
+	return plane;
+}
+>>>>>>> 5f73d32fe4625e88799c2365af25ede1e72138bb
