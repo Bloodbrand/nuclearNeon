@@ -6,7 +6,6 @@ return function(){
 	var trackHolder = new THREE.Object3D(), underPlanesHolder = new THREE.Object3D();
 	var trackObjectsArray = [], scoreBoard = $('#score');
 
-<<<<<<< HEAD
 return{
 	trackModuleRaycaster: {}
 	,
@@ -58,46 +57,6 @@ return{
 				//rotation
 				//newTrack.rotation.z = this.totalModules * (Math.PI / 22.5);
 				this.totalModules++;
-=======
-function startGame () {
-	startTime = new Date().getTime();
-	generateTrack.addInitialModule();
-	generateTrack.addModule(maxModules, 0);
-	player = makeShip();
-
-	scene.add(trackHolder);
-	scene.add(player);
-	scene.add(underPlanesHolder.add(makePlane()));
-}
-
-function gameLoop () {	
-	manageTime();
-	takeInput();
-	moveTrack();
-	movePlayer.update();
-	rangeToObj();
-	detectOffscreenModule();
-}
-
-var generateTrack = {
-	totalModules: Number(0),
-	addModule: function (num) {		
-		for (var module = 0; module < num; module++) {
-			var newTrack = makeTrackModule();
-			var length = trackHolder.children.length;
-			var lastModule = trackHolder.children[length-1];
-			newTrack.position.z = lastModule.position.z - (lastModule.zValue / 2) 
-				- (newTrack.zValue / 2);
-
-			//wave pattern
-			//newTrack.position.y = Math.sin(this.totalModules) * 5;
-
-			//rotation
-			//newTrack.rotation.z = this.totalModules * (Math.PI / 22.5);
-			//camera.rotation.z += Math.PI / 20;
-			this.totalModules++;
->>>>>>> 5f73d32fe4625e88799c2365af25ede1e72138bb
-
 				trackHolder.add(newTrack);
 			}
 		}
